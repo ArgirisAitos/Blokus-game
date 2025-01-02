@@ -1,0 +1,32 @@
+<?php 
+
+
+require 'game.php';
+require 'db.php'; 
+
+// Λήψη δεδομένων JSON
+$input = json_decode(file_get_contents('php://input'), true);
+
+
+$method = $_SERVER['REQUEST_METHOD'];
+$request = explode('/', trim($_SERVER['PATH_INFO'], characters: '/'));
+
+switch ($r = array_shift($request)) {
+    case 'create':
+        if ($method == 'POST') {
+            createNewGame($input);
+        } else {
+            header("HTTP/1.1 405 Method Not Allowed");
+        }
+        break;
+
+    
+
+    default:
+        header("HTTP/1.1 404 Not Found");
+        echo json_encode(['error' => "Endpoint '$r' not found."]);
+        break;
+}
+?>
+
+
