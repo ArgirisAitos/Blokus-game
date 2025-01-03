@@ -3,6 +3,7 @@
 
 require 'game.php';
 require 'db.php'; 
+require 'Board.php';
 
 // Λήψη δεδομένων JSON
 $input = json_decode(file_get_contents('php://input'), true);
