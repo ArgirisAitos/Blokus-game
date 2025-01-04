@@ -249,6 +249,25 @@ function Move($game_id,$request) {
     
 }
 
+function StartingCorners($game_id) {
+    global $pdo;
+
+    $stmt = $pdo->prepare("SELECT id FROM players WHERE game_id = :game_id ORDER BY id");
+    $stmt->execute(['game_id' => $game_id]);
+    $players = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+    $starting_corners = [];
+    $corners = [
+        ['x' => 0, 'y' => 0] ,
+        ['x' => 19, 'y' => 19],
+    ];
+
+    foreach ($players as $index => $player_id) {
+        $starting_corners[$player_id] = $corners[$index];
+    }
+
+    return $starting_corners;
+}
 
 
 
