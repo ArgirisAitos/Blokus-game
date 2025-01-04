@@ -60,7 +60,7 @@ switch ($r = array_shift($request)) {
     case 'shapes':
         if ($method == 'GET') {
             $game_id = array_shift($request);
-            AvailableShapes($game_id);
+            AvailableShapes($game_id,$input);
         } else {
             header("HTTP/1.1 405 Method Not Allowed");
         }
