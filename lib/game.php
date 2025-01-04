@@ -79,4 +79,36 @@ function joinGame($game_id,$request) {
     ]);
 }
 
+
+function Move($game_id,$request) {
+    global $pdo;
+
+    $player_name = $request['player_id'];
+    $token = $request['token'];
+    $piece = $request['piece'];
+    $position = $request['position'];
+
+    // τρέχουσα κατάσταση του παιχνιδιού
+    $stmt = $pdo->prepare("SELECT board_state, player_turn FROM games WHERE id = :game_id");
+    $stmt->execute(['game_id' => $game_id]);
+    $game = $stmt->fetch();
+
+    if (!$game) {
+        echo json_encode(['error' => 'Game not found.']);
+        return;
+    }
+
+    if ($game['player_turn'] != $player_name) {
+        echo json_encode(['error' => 'Not your turn.']);
+        return;
+    }
+
+
+
+
+
+
+
+
+
 ?>
