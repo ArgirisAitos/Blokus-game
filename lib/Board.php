@@ -39,7 +39,25 @@ function viewBoard($game_id) {
         echo $output;
     }
 
+
+
+    function updateBoardState($board, $piece, $position, $player_id) {
+        foreach ($piece as $dx => $row) {
+            foreach ($row as $dy => $value) {
+                if ($value === 1) {
+                    $x = $position['x'] + $dx;
+                    $y = $position['y'] + $dy;
+
+             
+
+                    $board[$x][$y] = $player_id;
+                }
+            }
+        }
+        return $board;
+    }
+
+
+
     
     ?>
-
-
