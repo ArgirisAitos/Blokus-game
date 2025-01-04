@@ -2,7 +2,7 @@
 
 
 require '../lib/game.php';
-require 'db.php'; 
+require '../lib/db.php'; 
 require '../lib/Board.php';
 
 // Λήψη δεδομένων JSON
