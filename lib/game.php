@@ -1,6 +1,6 @@
 <?php
 
-require
+require "lib/Board.php";
 session_start();
 function generateToken() {
     return bin2hex(random_bytes(4)); 
