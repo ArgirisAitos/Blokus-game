@@ -1,9 +1,9 @@
 <?php 
 
 
-require '../lib/game.php';
-require '../lib/db.php'; 
-require '../lib/Board.php';
+require '/lib/game.php';
+require '/lib/db.php'; 
+require '/lib/Board.php';
 
 // Λήψη δεδομένων JSON
 $input = json_decode(file_get_contents('php://input'), true);
