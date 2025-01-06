@@ -66,11 +66,6 @@ switch ($r = array_shift($request)) {
         }
         break;
 
-
-
-
-        
-
     default:
         header("HTTP/1.1 404 Not Found");
         echo json_encode(['error' => "Endpoint '$r' not found."]);
