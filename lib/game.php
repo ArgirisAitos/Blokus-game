@@ -1,6 +1,6 @@
     <?php
 
-    require "lib/Board.php";
+    require_once "lib/Board.php";
 
     session_start();
     function generateToken() {
