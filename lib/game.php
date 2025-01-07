@@ -269,6 +269,30 @@
         return $starting_corners;
     }
 
+ function AvailableShapes($game_id,$request) {
+        global $pdo;
+
+       
+        $player_id = $request['player_id'] ?? null;
+        $token=$request['token'] ?? null;
+        
+
+        if (!$game_id || !$player_id || !$token) {
+            echo json_encode(['error' => 'Game ID ,Player ID and token are required.']);
+            return;
+        }
+
+        $stmt = $pdo->prepare("SELECT pieces_remaining FROM players WHERE game_id = :game_id AND name = :player_id");
+        $stmt->execute(['game_id' => $game_id, 'player_id' => $player_id]);
+        $player = $stmt->fetch();
+
+        if ($player) {
+            echo json_encode(['shapes' => json_decode($player['pieces_remaining'], true)]);
+        } else {
+            echo json_encode(['error' => 'Player not found in database.']);
+        }
+    }
+
     function initShapes($game_id, $player_name,$token) {
         global $pdo;
 
