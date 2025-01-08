@@ -5,9 +5,11 @@ php_flag log_errors on
 php_value error_log /home/student/iee/2020/iee2020002/PHP_errors.log
 
 <Limit GET HEAD POST PUT DELETE OPTIONS>
+
 # Deprecated apache 2.2 syntax:
 # Order Allow,Deny
 # Allow from all
 # Apache > 2.4 requires:
 Require all granted
+
 </Limit>
