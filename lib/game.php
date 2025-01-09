@@ -478,6 +478,42 @@
         echo json_encode(['success' => true, 'message' => 'You passed your turn and are now excluded from the game.']);
     }
         
+
+    function checkGameStatus($game_id) {
+        global $pdo;
+    
+        // Για playerturn
+        $stmt = $pdo->prepare("SELECT  player_turn FROM games WHERE id = :game_id");
+        $stmt->execute(['game_id' => $game_id]);
+        $game = $stmt->fetch();
+    
+        // Έλεγχος για ενεργούς παίκτες
+        $stmt = $pdo->prepare("SELECT name FROM players WHERE game_id = :game_id AND is_excluded = 0 ORDER BY id LIMIT 1");
+        $stmt->execute(['game_id' => $game_id]);
+        $next_player = $stmt->fetchColumn();
+    
+        // Αν δεν υπάρχουν ενεργοί παίκτες, τελείωσε το παιχνίδι
+        if ($next_player === false) {
+            endGame($game_id);
+        } else {
+            // Αν υπάρχουν ενεργοί παίκτες, εμφάνισε το μήνυμα "Game in progress"
+            echo json_encode([
+                'message' => 'Game in progress.',
+                'player_turn' => $game['player_turn']
+            ]);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
     function endGame($game_id) {
         global $pdo;
 
