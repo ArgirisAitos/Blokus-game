@@ -504,16 +504,6 @@
         }
     }
 
-
-
-
-
-
-
-
-
-
-
     function endGame($game_id) {
         global $pdo;
 
