@@ -1,10 +1,7 @@
 <?php
-
-
 function viewBoard($game_id) {
         global $pdo;
         
-
         if (!$game_id) {
             echo json_encode(['error' => 'Missing game_id parameter.']);
             return;
@@ -39,8 +36,6 @@ function viewBoard($game_id) {
         echo $output;
     }
 
-
-
     function updateBoardState($board, $piece, $position, $player_id) {
         foreach ($piece as $dx => $row) {
             foreach ($row as $dy => $value) {
@@ -57,7 +52,4 @@ function viewBoard($game_id) {
         return $board;
     }
 
-
-
-    
     ?>
