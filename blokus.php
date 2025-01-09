@@ -66,6 +66,18 @@ switch ($r = array_shift($request)) {
         }
         break;
 
+        case 'status':
+            if ($method == 'GET') {
+                $game_id = array_shift($request);
+                checkGameStatus($game_id);
+            } else {
+                header("HTTP/1.1 405 Method Not Allowed");
+                echo json_encode(['error' => 'Method Not Allowed']);
+                exit;
+            }
+            break;
+
+
 
 
     default:
