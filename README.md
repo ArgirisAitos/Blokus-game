@@ -4,7 +4,7 @@
 # Blokus Game   API Documentation
 
 Η εφαρμογή είναι διαθέσιμη στη διεύθυνση:  
-**[https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php]**
+**https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php**
 
 ## Περιγραφή Project
 
