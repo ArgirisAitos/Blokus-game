@@ -356,26 +356,39 @@
         $cols = count($board[0]);
         $x_offset = $position['x'];
         $y_offset = $position['y'];
-    
+
         $is_touching_corner = false;
-    
+
         foreach ($shape as $dx => $row) {
             foreach ($row as $dy => $value) {
                 if ($value === 1) {
                     $x = $x_offset + $dx;
                     $y = $y_offset + $dy;
-    
-                    // Έλεγχος αν εκτός ορίων
+
+                    // εκτός ορίων
                     if ($x < 0 || $x >= $rows || $y < 0 || $y >= $cols) {
                         return 'The shape is out of bounds';
                     }
-    
-                    // Έλεγχος αν η θέση είναι ήδη καταληφθείσα
+
+                    // Έλεγχος αν καλύπτει ήδη κατειλημμένο μπλοκ
                     if ($board[$x][$y] !== 0) {
                         return 'Position already occupied';
                     }
-    
-                    // Έλεγχος πλευρικής επαφής
+                    
+                    // Έλεγχος γωνιών (πρέπει να ακουμπά γωνία άλλου κομματιού του ίδιου παίκτη)
+                    foreach ([[-1, -1], [-1, 1], [1, -1], [1, 1]] as $corner) {
+                        $cx = $x + $corner[0];
+                        $cy = $y + $corner[1];
+                        if ($cx >= 0 && $cx < $rows && $cy >= 0 && $cy < $cols) {
+                            if ($board[$cx][$cy] === $player_id) {
+                                $is_touching_corner = true;
+                                
+                            }
+                        }
+                    }
+                    
+
+                    // Έλεγχος πλευρών (απαγορεύεται να ακουμπά πλευρά άλλου κομματιού του ίδιου παίκτη)
                     foreach ([[-1, 0], [1, 0], [0, -1], [0, 1]] as $side) {
                         $sx = $x + $side[0];
                         $sy = $y + $side[1];
@@ -385,30 +398,21 @@
                             }
                         }
                     }
-    
-                    // Έλεγχος γωνιακής επαφής
-                    foreach ([[-1, -1], [-1, 1], [1, -1], [1, 1]] as $corner) {
-                        $cx = $x + $corner[0];
-                        $cy = $y + $corner[1];
-                        if ($cx >= 0 && $cx < $rows && $cy >= 0 && $cy < $cols) {
-                            if ($board[$cx][$cy] === $player_id) {
-                                $is_touching_corner = true;
-                                break 2; // Βγες από τους ελέγχους αν βρεθεί γωνιακή επαφή
-                            }
-                        }
-                    }
-                }
+
+                    
             }
         }
-    
+
+
+
         // Η τοποθέτηση είναι έγκυρη μόνο αν ακουμπά γωνία
         if (!$is_touching_corner) {
             return 'The shape must touch a corner of another piece';
-        }
-    
+    }
+    }
+
         return true;
     }
-    
 
     function pass($game_id,$request) {
         global $pdo;
