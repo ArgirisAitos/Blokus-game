@@ -414,7 +414,7 @@
         return true;
     }
 
-    function passTurn($game_id,$request) {
+    function pass($game_id,$request) {
         global $pdo;
 
         $player_name = $request['player_id'] ?? null;
