@@ -42,7 +42,7 @@ switch ($r = array_shift($request)) {
     case 'pass':
         if ($method == 'POST') {
             $game_id = array_shift($request);
-            passTurn($game_id,$input);
+            pass($game_id,$input);
         } else {
             header("HTTP/1.1 405 Method Not Allowed");
         }
