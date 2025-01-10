@@ -76,7 +76,7 @@
         echo json_encode([
             'token' => $token,
             'player_id' => $player_name,
-            'message' => ' Game started, Second player: start corner (19, 19), Player 1\'s turn.'
+            'message' => ' Game started, Second player: start corner (19, 19), Player 1\'s turn to play first.'
             
         ]);
     }
