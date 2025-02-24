@@ -3,37 +3,37 @@
 
 # Blokus Game   API Documentation
 
-Η εφαρμογή είναι διαθέσιμη στη διεύθυνση:  
+The application is available at:
 **https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php**
 
-## Περιγραφή Project
+## Project Description
 
-Το Blokus είναι ένα online παιχνίδι στρατηγικής, όπου δύο παίκτες τοποθετούν σχήματα στον πίνακα με στόχο να καταλάβουν όσο το δυνατόν περισσότερο χώρο. Αναπτύχθηκε ως μέρος της εργασίας στο μάθημα Ανάπτυξη Διαδικτυακών Συστημάτων και Εφαρμογών. Το API επιτρέπει τη δημιουργία παιχνιδιών, την ένταξη παικτών, τη διαχείριση κινήσεων και την παρακολούθηση της κατάστασης του παιχνιδιού μέσω CLI εργαλείων όπως το curl.
+Blokus is an online strategy board game where two players place shapes on the board aiming to cover as much space as possible. It was developed as part of the coursework for the Development of Web Systems and Applications course. The API allows game creation, player joining, move management, and game status tracking through CLI tools such as curl.
 
 
-### Τεχνολογίες
+### Technologies
 
 - **Backend:** PHP
 - **Database:** MySQL
 - **Data Format:** JSON
 
-## Βάση Δεδομένων
+## Database
 
-**Πίνακες:**
+**Tables:**
 
-- **games:** Αποθηκεύει τις πληροφορίες των παιχνιδιών.
-- **moves:** Αποθηκεύει τις κινήσεις των παικτών.
-- **players:** Αποθηκεύει τους παίκτες και τα δεδομένα τους.
+- **games:** Stores game information.
+- **moves:** Stores player moves.
+- **players:** Stores player information and their data.
 
 ## API Endpoints
 
-### 1. Δημιουργία Νέου Παιχνιδιού
+### 1. Create New Game
 
 **Endpoint:** `/create`  
 **Method:** POST  
-**Περιγραφή:** Δημιουργεί ένα νέο παιχνίδι, έναν κενό πίνακα (20x20), game_id και ένα token αποθηκεύει το παιχνίδι στη βάση, αναθέτει σχήματα στον παίκτη και επιστρέφει το `game_id` , το `player_id` , το `token` και ένα μήνυμα.
+**Description:** Creates a new game with an empty board (20x20), generates a game_id and a token, stores the game in the database, assigns shapes to the player, and returns the `game_id`, `player_id`,` token`, and a `message`.
 
-**Παράδειγμα:**
+**Example:**
 ```bash
 curl -X POST https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/create/ \
 -H "Content-Type: application/json" \
@@ -50,13 +50,13 @@ curl -X POST https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/cre
 }
 ```
 
-### 2. Εντάσσεται σε Παιχνίδι
+### 2. Join Game
 
 **Endpoint:** `/join/{game_id}`  
 **Method:** POST  
-**Περιγραφή:**  Εντάσσει έναν παίκτη σε ένα υπάρχον παιχνίδι ,δημιουργεί ένα token για τον παίκτη ,αναθέτει σχήματα στο παίκτη κα επιστρέφει το `token` του παίκτη μαζί με το `player_id` και ενα μύνημα. 
+**Description:**  Adds a player to an existing game, generates a token for the player, assigns shapes to them, and returns the `player_id`, `token` and a `message`.
 
-**Παράδειγμα:**
+**Example:**
 ```bash
 curl -X POST https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/join/1 \
 -H "Content-Type: application/json" \
@@ -72,14 +72,14 @@ curl -X POST https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/joi
 }
 ```
 
-### 3. Κίνηση Παίκτη
+### 3. Player Move
 
 **Endpoint:** `/move/{game_id}`  
 **Method:** POST  
-**Περιγραφή:**  Ο παίκτης τοποθετεί ένα σχήμα στον πίνακα σύμφωνα με τους κανόνες του παιχνιδιού.
+**Description:** The player places a shape on the board following the game's rules.
 
 
-**Παράδειγμα:**
+**Example:**
 ```bash
 curl -X POST https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/move/1 \
 -H "Content-Type: application/json" \
@@ -93,13 +93,13 @@ curl -X POST https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/mov
 }
 ```
 
-### 4. Προβολή Πίνακα
+### 4. View Board
 
 **Endpoint:** `/board/{game_id}`  
 **Method:** GET  
-**Περιγραφή:** Εμφανίζει την τρέχουσα κατάσταση του πίνακα.
+**Description:** Displays the current state of the game board..
 
-**Παράδειγμα:**
+**Example:**
 ```bash
 curl -X GET https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/board/1
 ```
@@ -115,13 +115,13 @@ curl -X GET https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/boar
 }
 ```
 
-### 5. Παράλειψη Σειράς
+### 5. Pass Turn
 
 **Endpoint:** `/pass/{game_id}`  
 **Method:** POST  
-**Περιγραφή:** Ο παίκτης παραλείπει τη σειρά του.
+**Description:** The player skips their turn.
 
-**Παράδειγμα:**
+**Example:**
 ```bash
 curl -X POST https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/pass/1 -H "Content-Type: application/json"
 -d '{"player_id": "player1","token":"c68d9940"}'
@@ -135,13 +135,13 @@ curl -X POST https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/pas
 }
 ```
 
-### 6. Κατάσταση Παιχνιδιού
+### 6. Game Status
 
 **Endpoint:** `/status/{game_id}`  
 **Method:** GET  
-**Περιγραφή:** Εμφανίζει την κατάσταση του παιχνιδιού και ποιος παίκτης είναι η σειρά του.
+**Description:** Displays the game status and whose turn it is.
 
-**Παράδειγμα:**
+**Example:**
 ```bash
 curl -X GET https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/status/1
 ```
@@ -154,13 +154,13 @@ curl -X GET https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/stat
 }
 ```
 
-### 7. Διαθέσιμα Σχήματα
+### 7. Available Shapes
 
 **Endpoint:** `/shapes/{game_id}`  
 **Method:** GET  
-**Περιγραφή:** Επιστρέφει τα διαθέσιμα σχήματα που μπορεί να τοποθετήσει ο παίκτης.
+**Description:** Returns the available shapes that a player can place.
 
-**Παράδειγμα:**
+**Example:**
 ```bash
 curl -X GET https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/shapes/1 -H "Content-Type: application/json" -d "{\"player_id\": \"player1\",\"token\":\"c68d9940\"}"
 ```
@@ -172,11 +172,11 @@ curl -X GET https://users.iee.ihu.gr/~iee2020002/ADISE24_2020002/blokus.php/shap
 }
 ```
 
-## Οδηγίες Εγκατάστασης
+## Installation Instructions
 
 1. Clone το repository:  
    ```bash
    git clone https://github.com/<username>/ADISE24_2020002.git
    ```
-2. Δημιουργία βάσης δεδομένων: Δημιουργήστε τη βάση `blokus` και εισάγετε το αρχείο `schema.sql`.
-3. Ρυθμίστε τα διαπιστευτήρια της βάσης στο `db_upass.php`.
+2. Create the database: Create the blokus database and import the `schema.sql` file.
+3. Configure database credentials in `db_upass.php`.
